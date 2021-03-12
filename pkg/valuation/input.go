@@ -10,4 +10,5 @@ type Input struct {
 	EffectiveTaxRate      float64
 	CostOfCapital         float64
 	TerminalCostOfCapital float64
+	RevenueGrowthRate     float64
 }
