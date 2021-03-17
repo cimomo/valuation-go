@@ -11,3 +11,10 @@ type Company struct {
 	BalanceSheet    *alphavantage.BalanceSheet
 	CashFlow        *alphavantage.CashFlow
 }
+
+// NewCompany returns a new Company object
+func NewCompany(symbol string) (*Company, error) {
+	return &Company{
+		Symbol: symbol,
+	}, nil
+}
