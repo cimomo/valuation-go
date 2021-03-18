@@ -14,7 +14,16 @@ type Company struct {
 
 // NewCompany returns a new Company object
 func NewCompany(symbol string) (*Company, error) {
-	return &Company{
+	company := Company{
 		Symbol: symbol,
-	}, nil
+	}
+
+	client, err := alphavantage.NewClient("thisshouldnotwork")
+	if err != nil {
+		return nil, err
+	}
+
+	company.Client = client
+
+	return &company, nil
 }
