@@ -27,3 +27,33 @@ func NewCompany(symbol string) (*Company, error) {
 
 	return &company, nil
 }
+
+// Fetch retrieves company data from financial data provider
+func (company *Company) Fetch() error {
+	overview, err := company.Client.GetCompanyOverview(company.Symbol)
+	if err != nil {
+		return err
+	}
+
+	incomeStatement, err := company.Client.GetIncomeStatement(company.Symbol)
+	if err != nil {
+		return err
+	}
+
+	balanceSheet, err := company.Client.GetBalanceSheet(company.Symbol)
+	if err != nil {
+		return err
+	}
+
+	cashFlow, err := company.Client.GetCashFlow(company.Symbol)
+	if err != nil {
+		return err
+	}
+
+	company.Overview = overview
+	company.IncomeStatement = incomeStatement
+	company.BalanceSheet = balanceSheet
+	company.CashFlow = cashFlow
+
+	return nil
+}
