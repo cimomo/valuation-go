@@ -2,7 +2,7 @@ GOCMD=go
 GOBUILD=$(GOCMD) build
 GOTEST=$(GOCMD) test
 SOURCE=cmd/valuation/main.go
-TARGET=value
+TARGET=stock
 OUTPUT=/usr/local/bin/$(TARGET)
 
 .PHONY: build test clean
