@@ -2,6 +2,7 @@ package valuation
 
 // Input defines the company specific input data for the valuation
 type Input struct {
+	Company               *Company
 	Revenue               float64
 	EBIT                  float64
 	TotalEquity           float64
