@@ -13,3 +13,12 @@ type Input struct {
 	TerminalCostOfCapital float64
 	RevenueGrowthRate     float64
 }
+
+// NewInput returns a new valuation input object
+func NewInput(company *Company) (*Input, error) {
+	input := Input{
+		Company: company,
+	}
+
+	return &input, nil
+}
