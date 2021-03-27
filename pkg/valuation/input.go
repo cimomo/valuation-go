@@ -35,6 +35,11 @@ func (input *Input) Compute() error {
 		return err
 	}
 
+	err = input.computeEBIT()
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -60,6 +65,32 @@ func (input *Input) computeRevenue() error {
 	}
 
 	input.Revenue = revenue
+
+	return nil
+}
+
+func (input *Input) computeEBIT() error {
+	quarterly := input.Company.IncomeStatement.QuarterlyReports
+	if quarterly == nil {
+		return errors.New("No quarterly income statement found")
+	}
+
+	if len(quarterly) < 4 {
+		return errors.New("Need at least four quarters of results")
+	}
+
+	ttm := quarterly[:4]
+
+	ebit := 0.0
+	for _, v := range ttm {
+		r, err := strconv.ParseFloat(v.EBIT, 64)
+		if err != nil {
+			return err
+		}
+		ebit += r
+	}
+
+	input.Revenue = ebit
 
 	return nil
 }
