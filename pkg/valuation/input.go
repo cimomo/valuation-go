@@ -90,7 +90,7 @@ func (input *Input) computeEBIT() error {
 		ebit += r
 	}
 
-	input.Revenue = ebit
+	input.EBIT = ebit
 
 	return nil
 }
