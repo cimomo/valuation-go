@@ -3,6 +3,8 @@ package valuation
 import (
 	"errors"
 	"strconv"
+
+	"github.com/cimomo/alphavantage-go"
 )
 
 // Input defines the company specific input data for the valuation
@@ -43,17 +45,26 @@ func (input *Input) Compute() error {
 	return nil
 }
 
-func (input *Input) computeRevenue() error {
+func (input *Input) getTTM() ([]alphavantage.IncomeStatementReport, error) {
 	quarterly := input.Company.IncomeStatement.QuarterlyReports
 	if quarterly == nil {
-		return errors.New("No quarterly income statement found")
+		return nil, errors.New("No quarterly income statement found")
 	}
 
 	if len(quarterly) < 4 {
-		return errors.New("Need at least four quarters of results")
+		return nil, errors.New("Need at least four quarters of results")
 	}
 
 	ttm := quarterly[:4]
+
+	return ttm, nil
+}
+
+func (input *Input) computeRevenue() error {
+	ttm, err := input.getTTM()
+	if err != nil {
+		return err
+	}
 
 	revenue := 0.0
 	for _, v := range ttm {
@@ -70,16 +81,10 @@ func (input *Input) computeRevenue() error {
 }
 
 func (input *Input) computeEBIT() error {
-	quarterly := input.Company.IncomeStatement.QuarterlyReports
-	if quarterly == nil {
-		return errors.New("No quarterly income statement found")
+	ttm, err := input.getTTM()
+	if err != nil {
+		return err
 	}
-
-	if len(quarterly) < 4 {
-		return errors.New("Need at least four quarters of results")
-	}
-
-	ttm := quarterly[:4]
 
 	ebit := 0.0
 	for _, v := range ttm {
