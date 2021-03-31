@@ -45,7 +45,7 @@ func (input *Input) Compute() error {
 	return nil
 }
 
-func (input *Input) getTTM() ([]alphavantage.IncomeStatementReport, error) {
+func (input *Input) getQuarterlyIncomeStatementsTTM() ([]alphavantage.IncomeStatementReport, error) {
 	quarterly := input.Company.IncomeStatement.QuarterlyReports
 	if quarterly == nil {
 		return nil, errors.New("No quarterly income statement found")
@@ -61,7 +61,7 @@ func (input *Input) getTTM() ([]alphavantage.IncomeStatementReport, error) {
 }
 
 func (input *Input) computeRevenue() error {
-	ttm, err := input.getTTM()
+	ttm, err := input.getQuarterlyIncomeStatementsTTM()
 	if err != nil {
 		return err
 	}
@@ -81,7 +81,7 @@ func (input *Input) computeRevenue() error {
 }
 
 func (input *Input) computeEBIT() error {
-	ttm, err := input.getTTM()
+	ttm, err := input.getQuarterlyIncomeStatementsTTM()
 	if err != nil {
 		return err
 	}
