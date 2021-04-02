@@ -42,6 +42,11 @@ func (input *Input) Compute() error {
 		return err
 	}
 
+	err = input.computeTotalEquity()
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -96,6 +101,28 @@ func (input *Input) computeEBIT() error {
 	}
 
 	input.EBIT = ebit
+
+	return nil
+}
+
+func (input *Input) computeTotalEquity() error {
+	quarterly := input.Company.BalanceSheet.QuarterlyReports
+	if quarterly == nil {
+		return errors.New("No quarterly balance sheet found")
+	}
+
+	if len(quarterly) == 0 {
+		return errors.New("Need at least one quarter of results")
+	}
+
+	balanceSheet := quarterly[0]
+
+	totalEquity, err := strconv.ParseFloat(balanceSheet.TotalShareholderEquity, 64)
+	if err != nil {
+		return err
+	}
+
+	input.TotalEquity = totalEquity
 
 	return nil
 }
