@@ -47,6 +47,11 @@ func (input *Input) Compute() error {
 		return err
 	}
 
+	err = input.computeTotalDebt()
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
