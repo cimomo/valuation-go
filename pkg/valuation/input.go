@@ -126,3 +126,36 @@ func (input *Input) computeTotalEquity() error {
 
 	return nil
 }
+
+func (input *Input) computeTotalDebt() error {
+	quarterly := input.Company.BalanceSheet.QuarterlyReports
+	if quarterly == nil {
+		return errors.New("No quarterly balance sheet found")
+	}
+
+	if len(quarterly) == 0 {
+		return errors.New("Need at least one quarter of results")
+	}
+
+	balanceSheet := quarterly[0]
+
+	// ShortTermDebt includes short term borrowing and current portion of long term debt
+	shortTermDebt, err := strconv.ParseFloat(balanceSheet.ShortTermDebt, 64)
+	if err != nil {
+		return err
+	}
+
+	longTermDebt, err := strconv.ParseFloat(balanceSheet.LongTermDebtNoncurrent, 64)
+	if err != nil {
+		return err
+	}
+
+	capitalLease, err := strconv.ParseFloat(balanceSheet.CapitalLeaseObligations, 64)
+	if err != nil {
+		return err
+	}
+
+	input.TotalDebt = shortTermDebt + longTermDebt + capitalLease
+
+	return nil
+}
