@@ -52,6 +52,11 @@ func (input *Input) Compute() error {
 		return err
 	}
 
+	err = input.computeTotalCash()
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -161,6 +166,28 @@ func (input *Input) computeTotalDebt() error {
 	}
 
 	input.TotalDebt = shortTermDebt + longTermDebt + capitalLease
+
+	return nil
+}
+
+func (input *Input) computeTotalCash() error {
+	quarterly := input.Company.BalanceSheet.QuarterlyReports
+	if quarterly == nil {
+		return errors.New("No quarterly balance sheet found")
+	}
+
+	if len(quarterly) == 0 {
+		return errors.New("Need at least one quarter of results")
+	}
+
+	balanceSheet := quarterly[0]
+
+	totalCash, err := strconv.ParseFloat(balanceSheet.CashAndShortTermInvestments, 64)
+	if err != nil {
+		return err
+	}
+
+	input.TotalCash = totalCash
 
 	return nil
 }
