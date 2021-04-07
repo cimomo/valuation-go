@@ -27,4 +27,5 @@ func TestComputeInput(t *testing.T) {
 	t.Logf("EBIT TTM: %f", input.EBIT)
 	t.Logf("Total Equity: %f", input.TotalEquity)
 	t.Logf("Total Debt: %f", input.TotalDebt)
+	t.Logf("Total Cash: %f", input.TotalCash)
 }
