@@ -31,7 +31,7 @@ func NewInput(company *Company) (*Input, error) {
 }
 
 // Compute computes the valuation input from company fundamentals data
-func (input *Input) Compute() error {
+func (input *Input) Compute(effectiveTaxRate float64, costOfCapital float64, terminalCostOfcapital float64, revenueGrowthRate float64) error {
 	err := input.computeRevenue()
 	if err != nil {
 		return err
@@ -56,6 +56,11 @@ func (input *Input) Compute() error {
 	if err != nil {
 		return err
 	}
+
+	input.EffectiveTaxRate = effectiveTaxRate
+	input.CostOfCapital = costOfCapital
+	input.TerminalCostOfCapital = terminalCostOfcapital
+	input.RevenueGrowthRate = revenueGrowthRate
 
 	return nil
 }

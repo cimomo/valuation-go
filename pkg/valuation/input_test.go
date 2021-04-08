@@ -18,7 +18,7 @@ func TestComputeInput(t *testing.T) {
 		t.Error(err)
 	}
 
-	err = input.Compute()
+	err = input.Compute(0.15, 0.07, 0.07, 0.2)
 	if err != nil {
 		t.Error(err)
 	}
