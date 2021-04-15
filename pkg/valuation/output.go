@@ -2,5 +2,6 @@ package valuation
 
 // Output defines the valuation result
 type Output struct {
-	PresentValue float64
+	TerminalCashFlow float64
+	PresentValue     float64
 }
