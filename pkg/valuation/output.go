@@ -7,4 +7,5 @@ type Output struct {
 	PresentValueOfTerminalValue float64
 	PresentValueOfCashFlow      float64
 	PresentValue                float64
+	EquityValue                 float64
 }
