@@ -16,6 +16,7 @@ type OutputYear struct {
 
 // Output defines the valuation result
 type Output struct {
+	OutputYears                 []OutputYear
 	TerminalCashFlow            float64
 	TerminalValue               float64
 	PresentValueOfTerminalValue float64
