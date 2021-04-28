@@ -8,4 +8,5 @@ type Output struct {
 	PresentValueOfCashFlow      float64
 	PresentValue                float64
 	EquityValue                 float64
+	ValuePerShare               float64
 }
