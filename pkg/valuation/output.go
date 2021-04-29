@@ -16,6 +16,8 @@ type OutputYear struct {
 
 // Output defines the valuation result
 type Output struct {
+	Market                      *Market
+	Input                       *Input
 	OutputYears                 []OutputYear
 	TerminalCashFlow            float64
 	TerminalValue               float64
