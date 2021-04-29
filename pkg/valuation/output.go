@@ -27,3 +27,13 @@ type Output struct {
 	EquityValue                 float64
 	ValuePerShare               float64
 }
+
+// NewOutput returns a new valuation output object
+func NewOutput(market *Market, input *Input) (*Output, error) {
+	output := Output{
+		Market: market,
+		Input:  input,
+	}
+
+	return &output, nil
+}
