@@ -1,5 +1,7 @@
 package valuation
 
+const yearsOfHighGrowth = 5
+
 // OutputYear defines the cash flow calculation of one particular year in the future
 type OutputYear struct {
 	RevenueGrowthRate      float64
@@ -34,6 +36,10 @@ func NewOutput(market *Market, input *Input) (*Output, error) {
 		Market: market,
 		Input:  input,
 	}
+
+	years := make([]OutputYear, yearsOfHighGrowth*2+2)
+
+	output.OutputYears = years
 
 	return &output, nil
 }
