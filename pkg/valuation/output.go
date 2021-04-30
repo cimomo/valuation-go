@@ -43,3 +43,8 @@ func NewOutput(market *Market, input *Input) (*Output, error) {
 
 	return &output, nil
 }
+
+// Compute calculates the valuation output
+func (output *Output) Compute() error {
+	return nil
+}
