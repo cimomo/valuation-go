@@ -2,7 +2,7 @@ package valuation
 
 import "testing"
 
-func TestComputeInput(t *testing.T) {
+func TestValuation(t *testing.T) {
 	company, err := NewCompany("MSFT")
 	if err != nil {
 		t.Error(err)
