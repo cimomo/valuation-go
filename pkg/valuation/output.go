@@ -46,5 +46,14 @@ func NewOutput(market *Market, input *Input) (*Output, error) {
 
 // Compute calculates the valuation output
 func (output *Output) Compute() error {
+	err := output.computrBaseYear()
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (output *Output) computrBaseYear() error {
 	return nil
 }
