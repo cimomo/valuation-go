@@ -59,5 +59,8 @@ func (output *Output) Compute() error {
 }
 
 func (output *Output) computeBaseYear() error {
+	baseYear := OutputYear{}
+
+	output.BaseYear = &baseYear
 	return nil
 }
