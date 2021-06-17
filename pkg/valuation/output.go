@@ -60,6 +60,11 @@ func (output *Output) Compute() error {
 
 func (output *Output) computeBaseYear() error {
 	baseYear := OutputYear{}
+	input := output.Input
+
+	baseYear.Revenue = input.Revenue
+	baseYear.EBIT = input.EBIT
+	baseYear.TaxRate = input.EffectiveTaxRate
 
 	output.BaseYear = &baseYear
 	return nil
