@@ -22,16 +22,20 @@ type Input struct {
 }
 
 // NewInput returns a new valuation input object
-func NewInput(company *Company) (*Input, error) {
+func NewInput(company *Company, effectiveTaxRate float64, costOfCapital float64, terminalCostOfcapital float64, revenueGrowthRate float64) (*Input, error) {
 	input := Input{
-		Company: company,
+		Company:               company,
+		EffectiveTaxRate:      effectiveTaxRate,
+		CostOfCapital:         costOfCapital,
+		TerminalCostOfCapital: terminalCostOfcapital,
+		RevenueGrowthRate:     revenueGrowthRate,
 	}
 
 	return &input, nil
 }
 
 // Compute computes the valuation input from company fundamentals data
-func (input *Input) Compute(effectiveTaxRate float64, costOfCapital float64, terminalCostOfcapital float64, revenueGrowthRate float64) error {
+func (input *Input) Compute() error {
 	err := input.computeRevenue()
 	if err != nil {
 		return err
@@ -56,11 +60,6 @@ func (input *Input) Compute(effectiveTaxRate float64, costOfCapital float64, ter
 	if err != nil {
 		return err
 	}
-
-	input.EffectiveTaxRate = effectiveTaxRate
-	input.CostOfCapital = costOfCapital
-	input.TerminalCostOfCapital = terminalCostOfcapital
-	input.RevenueGrowthRate = revenueGrowthRate
 
 	return nil
 }

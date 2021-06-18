@@ -13,12 +13,12 @@ func TestValuation(t *testing.T) {
 		t.Error(err)
 	}
 
-	input, err := NewInput(company)
+	input, err := NewInput(company, 0.15, 0.07, 0.07, 0.2)
 	if err != nil {
 		t.Error(err)
 	}
 
-	err = input.Compute(0.15, 0.07, 0.07, 0.2)
+	err = input.Compute()
 	if err != nil {
 		t.Error(err)
 	}
