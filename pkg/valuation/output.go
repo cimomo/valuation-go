@@ -66,6 +66,9 @@ func (output *Output) computeBaseYear() error {
 	baseYear.EBIT = input.EBIT
 	baseYear.TaxRate = input.EffectiveTaxRate
 
+	baseYear.EBITMargin = baseYear.EBIT / baseYear.Revenue
+	baseYear.AfterTaxEBIT = baseYear.EBIT * baseYear.TaxRate
+
 	output.BaseYear = &baseYear
 	return nil
 }
