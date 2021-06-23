@@ -72,3 +72,7 @@ func (output *Output) computeBaseYear() error {
 	output.BaseYear = &baseYear
 	return nil
 }
+
+func (output *Output) computeYearInGrowth(previousYear *OutputYear) error {
+	return nil
+}
