@@ -13,12 +13,27 @@ func TestValuation(t *testing.T) {
 		t.Error(err)
 	}
 
+	market, err := NewMarket(0.02, 0.02, 0.25)
+	if err != nil {
+		t.Error(err)
+	}
+
 	input, err := NewInput(company, 0.15, 0.07, 0.07, 0.2)
 	if err != nil {
 		t.Error(err)
 	}
 
 	err = input.Compute()
+	if err != nil {
+		t.Error(err)
+	}
+
+	output, err := NewOutput(market, input)
+	if err != nil {
+		t.Error(err)
+	}
+
+	err = output.Compute()
 	if err != nil {
 		t.Error(err)
 	}
