@@ -22,6 +22,7 @@ type Output struct {
 	Input                       *Input
 	BaseYear                    *OutputYear
 	HighGrowthYears             []OutputYear
+	LowGrowthYears              []OutputYear
 	TerminalYear                *OutputYear
 	TerminalCashFlow            float64
 	TerminalValue               float64
@@ -40,9 +41,11 @@ func NewOutput(market *Market, input *Input) (*Output, error) {
 	}
 
 	highGrowthYears := make([]OutputYear, yearsOfHighGrowth)
+	lowGrowthYears := make([]OutputYear, yearsOfHighGrowth)
 
 	output.BaseYear = &OutputYear{}
 	output.HighGrowthYears = highGrowthYears
+	output.LowGrowthYears = lowGrowthYears
 	output.TerminalYear = &OutputYear{}
 
 	return &output, nil
