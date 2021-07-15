@@ -19,16 +19,22 @@ type Input struct {
 	CostOfCapital         float64
 	TerminalCostOfCapital float64
 	RevenueGrowthRate     float64
+	StartingEBITMargin    float64
+	TerminalEBITMargin    float64
+	SalesToCapital        float64
 }
 
 // NewInput returns a new valuation input object
-func NewInput(company *Company, effectiveTaxRate float64, costOfCapital float64, terminalCostOfcapital float64, revenueGrowthRate float64) (*Input, error) {
+func NewInput(company *Company, effectiveTaxRate float64, costOfCapital float64, terminalCostOfcapital float64, revenueGrowthRate float64, startingEBITMargin float64, terminalEBITMargin float64, salesToCapital float64) (*Input, error) {
 	input := Input{
 		Company:               company,
 		EffectiveTaxRate:      effectiveTaxRate,
 		CostOfCapital:         costOfCapital,
 		TerminalCostOfCapital: terminalCostOfcapital,
 		RevenueGrowthRate:     revenueGrowthRate,
+		StartingEBITMargin:    startingEBITMargin,
+		TerminalEBITMargin:    terminalEBITMargin,
+		SalesToCapital:        salesToCapital,
 	}
 
 	return &input, nil

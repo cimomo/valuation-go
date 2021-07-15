@@ -13,6 +13,7 @@ type OutputYear struct {
 	Reinvestment           float64
 	FCFF                   float64
 	CostOfCapital          float64
+	DiscountFactor         float64
 	PresentValueOfCashFlow float64
 }
 
@@ -76,6 +77,19 @@ func (output *Output) computeBaseYear() error {
 	return nil
 }
 
-func (output *Output) computeYearInGrowth(previousYear *OutputYear) error {
-	return nil
+func (output *Output) computeYearInGrowth(previousYear *OutputYear, revenueGrowthRate float64, ebitMargin float64, taxRate float64, salesToCapital float64, discountFactor float64) (*OutputYear, error) {
+	result := OutputYear{}
+
+	result.RevenueGrowthRate = revenueGrowthRate
+	result.Revenue = previousYear.Revenue * (1 + revenueGrowthRate)
+	result.EBITMargin = ebitMargin
+	result.EBIT = result.Revenue * ebitMargin
+	result.AfterTaxEBIT = result.EBIT * (1 - taxRate)
+	result.Reinvestment = (result.Revenue - previousYear.Revenue) / salesToCapital
+	result.FCFF = result.AfterTaxEBIT - result.Reinvestment
+	result.CostOfCapital = output.Input.CostOfCapital
+	result.DiscountFactor = discountFactor
+	result.PresentValueOfCashFlow = result.FCFF * discountFactor
+
+	return &result, nil
 }
