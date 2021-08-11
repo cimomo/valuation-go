@@ -45,4 +45,5 @@ func TestValuation(t *testing.T) {
 	t.Logf("Total Cash: %f", input.TotalCash)
 
 	t.Logf("Base year revenue: %f", output.BaseYear.Revenue)
+	t.Logf("Base year EBIT margin: %f", output.BaseYear.EBITMargin)
 }
