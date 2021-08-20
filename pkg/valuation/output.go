@@ -54,15 +54,17 @@ func NewOutput(market *Market, input *Input) (*Output, error) {
 
 // Compute calculates the valuation output
 func (output *Output) Compute() error {
-	err := output.computeBaseYear()
+	baseYear, err := output.computeBaseYear()
 	if err != nil {
 		return err
 	}
 
+	output.BaseYear = baseYear
+
 	return nil
 }
 
-func (output *Output) computeBaseYear() error {
+func (output *Output) computeBaseYear() (*OutputYear, error) {
 	baseYear := OutputYear{}
 	input := output.Input
 
@@ -78,8 +80,7 @@ func (output *Output) computeBaseYear() error {
 		baseYear.AfterTaxEBIT = baseYear.EBIT
 	}
 
-	output.BaseYear = &baseYear
-	return nil
+	return &baseYear, nil
 }
 
 func (output *Output) computeYearInGrowth(previousYear *OutputYear, revenueGrowthRate float64, ebitMargin float64, taxRate float64, salesToCapital float64, discountFactor float64) (*OutputYear, error) {
