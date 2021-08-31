@@ -61,6 +61,22 @@ func (output *Output) Compute() error {
 
 	output.BaseYear = baseYear
 
+	input := output.Input
+	prevYear := baseYear
+	ebitMargin := input.StartingEBITMargin
+	discountFactor := 1 / (1 + input.CostOfCapital)
+
+	for i := 0; i < yearsOfHighGrowth; i++ {
+		year, err := output.computeYearInGrowth(prevYear, input.RevenueGrowthRate, ebitMargin, input.EffectiveTaxRate, discountFactor)
+		if err != nil {
+			return err
+		}
+
+		output.HighGrowthYears[i] = *year
+		prevYear = year
+		discountFactor = discountFactor * (1 / (1 + input.CostOfCapital))
+	}
+
 	return nil
 }
 
@@ -83,7 +99,7 @@ func (output *Output) computeBaseYear() (*OutputYear, error) {
 	return &baseYear, nil
 }
 
-func (output *Output) computeYearInGrowth(previousYear *OutputYear, revenueGrowthRate float64, ebitMargin float64, taxRate float64, salesToCapital float64, discountFactor float64) (*OutputYear, error) {
+func (output *Output) computeYearInGrowth(previousYear *OutputYear, revenueGrowthRate float64, ebitMargin float64, taxRate float64, discountFactor float64) (*OutputYear, error) {
 	result := OutputYear{}
 
 	result.RevenueGrowthRate = revenueGrowthRate
@@ -91,7 +107,7 @@ func (output *Output) computeYearInGrowth(previousYear *OutputYear, revenueGrowt
 	result.EBITMargin = ebitMargin
 	result.EBIT = result.Revenue * ebitMargin
 	result.AfterTaxEBIT = result.EBIT * (1 - taxRate)
-	result.Reinvestment = (result.Revenue - previousYear.Revenue) / salesToCapital
+	result.Reinvestment = (result.Revenue - previousYear.Revenue) / output.Input.SalesToCapital
 	result.FCFF = result.AfterTaxEBIT - result.Reinvestment
 	result.CostOfCapital = output.Input.CostOfCapital
 	result.DiscountFactor = discountFactor
