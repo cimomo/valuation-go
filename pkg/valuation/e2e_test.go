@@ -18,7 +18,7 @@ func TestValuation(t *testing.T) {
 		t.Error(err)
 	}
 
-	input, err := NewInput(company, 0.15, 0.07, 0.07, 0.2, 0.4, 0.4, 2.0)
+	input, err := NewInput(company, 0.15, 0.07, 0.07, 0.2, 0.4, 0.45, 2.0)
 	if err != nil {
 		t.Error(err)
 	}
