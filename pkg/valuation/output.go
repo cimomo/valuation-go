@@ -84,6 +84,17 @@ func (output *Output) Compute() error {
 		discountFactor = discountFactor * (1 / (1 + input.CostOfCapital))
 	}
 
+	for i := 0; i < yearsOfHighGrowth; i++ {
+		year, err := output.computeYearInGrowth(prevYear, input.RevenueGrowthRate, ebitMargin, input.EffectiveTaxRate, discountFactor)
+		if err != nil {
+			return err
+		}
+
+		output.LowGrowthYears[i] = *year
+		prevYear = year
+		discountFactor = discountFactor * (1 / (1 + input.CostOfCapital))
+	}
+
 	return nil
 }
 
