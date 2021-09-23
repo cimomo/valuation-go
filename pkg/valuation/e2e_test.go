@@ -57,4 +57,14 @@ func TestValuation(t *testing.T) {
 		t.Logf("Year %d tax rate: %f", i, year.TaxRate)
 		t.Logf("Year %d NOPAT: %f", i, year.AfterTaxEBIT)
 	}
+
+	offset := len(output.HighGrowthYears)
+
+	for i, year := range output.LowGrowthYears {
+		t.Logf("Year %d revenue: %f", i+offset, year.Revenue)
+		t.Logf("Year %d EBIT margin: %f", i+offset, year.EBITMargin)
+		t.Logf("Year %d EBIT: %f", i+offset, year.EBIT)
+		t.Logf("Year %d tax rate: %f", i+offset, year.TaxRate)
+		t.Logf("Year %d NOPAT: %f", i+offset, year.AfterTaxEBIT)
+	}
 }
