@@ -127,6 +127,7 @@ func (output *Output) computeYearInGrowth(previousYear *OutputYear, revenueGrowt
 	result.Revenue = previousYear.Revenue * (1 + revenueGrowthRate)
 	result.EBITMargin = ebitMargin
 	result.EBIT = result.Revenue * ebitMargin
+	result.TaxRate = taxRate
 	result.AfterTaxEBIT = result.EBIT * (1 - taxRate)
 	result.Reinvestment = (result.Revenue - previousYear.Revenue) / output.Input.SalesToCapital
 	result.FCFF = result.AfterTaxEBIT - result.Reinvestment
