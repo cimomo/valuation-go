@@ -44,6 +44,7 @@ func TestValuation(t *testing.T) {
 	t.Logf("Total Debt: %f", input.TotalDebt)
 	t.Logf("Total Cash: %f", input.TotalCash)
 
+	t.Logf("Base year revenue growth rate: %f", output.BaseYear.RevenueGrowthRate)
 	t.Logf("Base year revenue: %f", output.BaseYear.Revenue)
 	t.Logf("Base year EBIT margin: %f", output.BaseYear.EBITMargin)
 	t.Logf("Base year EBIT: %f", output.BaseYear.EBIT)
@@ -51,6 +52,7 @@ func TestValuation(t *testing.T) {
 	t.Logf("Base year NOPAT: %f", output.BaseYear.AfterTaxEBIT)
 
 	for i, year := range output.HighGrowthYears {
+		t.Logf("Year %d revenue growth rate: %f", i, year.RevenueGrowthRate)
 		t.Logf("Year %d revenue: %f", i, year.Revenue)
 		t.Logf("Year %d EBIT margin: %f", i, year.EBITMargin)
 		t.Logf("Year %d EBIT: %f", i, year.EBIT)
@@ -61,6 +63,7 @@ func TestValuation(t *testing.T) {
 	offset := len(output.HighGrowthYears)
 
 	for i, year := range output.LowGrowthYears {
+		t.Logf("Year %d revenue growth rate: %f", i+offset, year.RevenueGrowthRate)
 		t.Logf("Year %d revenue: %f", i+offset, year.Revenue)
 		t.Logf("Year %d EBIT margin: %f", i+offset, year.EBITMargin)
 		t.Logf("Year %d EBIT: %f", i+offset, year.EBIT)
