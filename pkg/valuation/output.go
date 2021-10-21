@@ -61,9 +61,11 @@ func (output *Output) Compute() error {
 
 	output.BaseYear = baseYear
 
+	market := output.Market
 	input := output.Input
 	prevYear := baseYear
 	startingRevenueGrowthRate := input.RevenueGrowthRate
+	terminalRevenueGrowthRate := market.TerminalRiskFreeRate
 	revenueGrowthRate := startingRevenueGrowthRate
 	ebitMargin := input.StartingEBITMargin
 	startingEBITMargin := input.StartingEBITMargin
@@ -88,6 +90,8 @@ func (output *Output) Compute() error {
 
 	for i := 0; i < yearsOfHighGrowth; i++ {
 		ebitMargin = terminalEBITMargin - ((terminalEBITMargin-startingEBITMargin)/float64((yearsOfHighGrowth*2-1)))*float64((yearsOfHighGrowth-i-1))
+
+		revenueGrowthRate = startingRevenueGrowthRate - ((startingRevenueGrowthRate-terminalRevenueGrowthRate)/float64(yearsOfHighGrowth))*float64(i+1)
 
 		year, err := output.computeYearInGrowth(prevYear, revenueGrowthRate, ebitMargin, input.EffectiveTaxRate, discountFactor)
 		if err != nil {
