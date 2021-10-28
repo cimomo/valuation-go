@@ -145,3 +145,9 @@ func (output *Output) computeYearInGrowth(previousYear *OutputYear, revenueGrowt
 
 	return &result, nil
 }
+
+func (output *Output) computeTerminalYear() (*OutputYear, error) {
+	result := OutputYear{}
+
+	return &result, nil
+}
