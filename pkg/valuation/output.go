@@ -149,5 +149,26 @@ func (output *Output) computeYearInGrowth(previousYear *OutputYear, revenueGrowt
 func (output *Output) computeTerminalYear() (*OutputYear, error) {
 	result := OutputYear{}
 
+	market := output.Market
+	input := output.Input
+	previousYear := output.HighGrowthYears[yearsOfHighGrowth-1]
+
+	result.RevenueGrowthRate = market.TerminalRiskFreeRate
+	result.Revenue = previousYear.Revenue * (1 + result.RevenueGrowthRate)
+	result.EBITMargin = input.TerminalEBITMargin
+	result.EBIT = result.Revenue * result.EBITMargin
+	result.TaxRate = market.MarginalTaxRate
+	result.AfterTaxEBIT = result.EBIT * (1 - result.TaxRate)
+
+	if result.RevenueGrowthRate > 0 {
+		result.Reinvestment = result.AfterTaxEBIT * (result.RevenueGrowthRate / input.TerminalCostOfCapital)
+	} else {
+		result.Reinvestment = 0
+	}
+
+	result.FCFF = result.AfterTaxEBIT - result.Reinvestment
+	result.CostOfCapital = input.TerminalCostOfCapital
+	result.DiscountFactor = previousYear.DiscountFactor
+
 	return &result, nil
 }
