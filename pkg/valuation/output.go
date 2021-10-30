@@ -106,6 +106,13 @@ func (output *Output) Compute() error {
 		discountFactor = discountFactor * (1 / (1 + input.CostOfCapital))
 	}
 
+	terminalYear, err := output.computeTerminalYear()
+	if err != nil {
+		return err
+	}
+
+	output.TerminalYear = terminalYear
+
 	return nil
 }
 
