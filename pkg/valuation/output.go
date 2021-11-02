@@ -71,7 +71,8 @@ func (output *Output) Compute() error {
 	startingEBITMargin := input.StartingEBITMargin
 	terminalEBITMargin := input.TerminalEBITMargin
 	taxRate := input.EffectiveTaxRate
-	discountFactor := 1 / (1 + input.CostOfCapital)
+	costOfCapital := input.CostOfCapital
+	discountFactor := 1 / (1 + costOfCapital)
 
 	for i := 0; i < yearsOfHighGrowth; i++ {
 
@@ -79,14 +80,14 @@ func (output *Output) Compute() error {
 			ebitMargin = terminalEBITMargin - ((terminalEBITMargin-startingEBITMargin)/float64((yearsOfHighGrowth*2-1)))*float64((yearsOfHighGrowth*2-i-1))
 		}
 
-		year, err := output.computeYearInGrowth(prevYear, revenueGrowthRate, ebitMargin, taxRate, discountFactor)
+		year, err := output.computeYearInGrowth(prevYear, revenueGrowthRate, ebitMargin, taxRate, costOfCapital, discountFactor)
 		if err != nil {
 			return err
 		}
 
 		output.HighGrowthYears[i] = *year
 		prevYear = year
-		discountFactor = discountFactor * (1 / (1 + input.CostOfCapital))
+		discountFactor = discountFactor * (1 / (1 + costOfCapital))
 	}
 
 	for i := 0; i < yearsOfHighGrowth; i++ {
@@ -96,14 +97,14 @@ func (output *Output) Compute() error {
 
 		taxRate = input.EffectiveTaxRate + ((market.MarginalTaxRate-input.EffectiveTaxRate)/float64(yearsOfHighGrowth))*float64(i+1)
 
-		year, err := output.computeYearInGrowth(prevYear, revenueGrowthRate, ebitMargin, taxRate, discountFactor)
+		year, err := output.computeYearInGrowth(prevYear, revenueGrowthRate, ebitMargin, taxRate, costOfCapital, discountFactor)
 		if err != nil {
 			return err
 		}
 
 		output.LowGrowthYears[i] = *year
 		prevYear = year
-		discountFactor = discountFactor * (1 / (1 + input.CostOfCapital))
+		discountFactor = discountFactor * (1 / (1 + costOfCapital))
 	}
 
 	terminalYear, err := output.computeTerminalYear()
@@ -135,7 +136,7 @@ func (output *Output) computeBaseYear() (*OutputYear, error) {
 	return &baseYear, nil
 }
 
-func (output *Output) computeYearInGrowth(previousYear *OutputYear, revenueGrowthRate float64, ebitMargin float64, taxRate float64, discountFactor float64) (*OutputYear, error) {
+func (output *Output) computeYearInGrowth(previousYear *OutputYear, revenueGrowthRate float64, ebitMargin float64, taxRate float64, costOfCapital float64, discountFactor float64) (*OutputYear, error) {
 	result := OutputYear{}
 
 	result.RevenueGrowthRate = revenueGrowthRate
@@ -146,7 +147,7 @@ func (output *Output) computeYearInGrowth(previousYear *OutputYear, revenueGrowt
 	result.AfterTaxEBIT = result.EBIT * (1 - taxRate)
 	result.Reinvestment = (result.Revenue - previousYear.Revenue) / output.Input.SalesToCapital
 	result.FCFF = result.AfterTaxEBIT - result.Reinvestment
-	result.CostOfCapital = output.Input.CostOfCapital
+	result.CostOfCapital = costOfCapital
 	result.DiscountFactor = discountFactor
 	result.PresentValueOfCashFlow = result.FCFF * discountFactor
 
