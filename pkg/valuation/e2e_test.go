@@ -59,6 +59,7 @@ func TestValuation(t *testing.T) {
 		t.Logf("Year %d tax rate: %f", i, year.TaxRate)
 		t.Logf("Year %d NOPAT: %f", i, year.AfterTaxEBIT)
 		t.Logf("Year %d reinvestment: %f", i, year.Reinvestment)
+		t.Logf("Year %d FCFF: %f", i, year.FCFF)
 	}
 
 	offset := len(output.HighGrowthYears)
@@ -71,6 +72,7 @@ func TestValuation(t *testing.T) {
 		t.Logf("Year %d tax rate: %f", i+offset, year.TaxRate)
 		t.Logf("Year %d NOPAT: %f", i+offset, year.AfterTaxEBIT)
 		t.Logf("Year %d reinvestment: %f", i+offset, year.Reinvestment)
+		t.Logf("Year %d FCFF: %f", i+offset, year.FCFF)
 	}
 
 	t.Logf("Terminal year revenue growth rate: %f", output.TerminalYear.RevenueGrowthRate)
@@ -80,4 +82,5 @@ func TestValuation(t *testing.T) {
 	t.Logf("Terminal year tax rate: %f", output.TerminalYear.TaxRate)
 	t.Logf("Terminal year NOPAT: %f", output.TerminalYear.AfterTaxEBIT)
 	t.Logf("Terminal year reinvestment: %f", output.TerminalYear.Reinvestment)
+	t.Logf("Terminal year FCFF: %f", output.TerminalYear.FCFF)
 }
