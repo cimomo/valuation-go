@@ -62,6 +62,7 @@ func TestValuation(t *testing.T) {
 		t.Logf("Year %d FCFF: %f", i, year.FCFF)
 		t.Logf("Year %d cost of capital: %f", i, year.CostOfCapital)
 		t.Logf("Year %d discount factor: %f", i, year.DiscountFactor)
+		t.Logf("Year %d PV(FCFF): %f", i, year.PresentValueOfCashFlow)
 	}
 
 	offset := len(output.HighGrowthYears)
@@ -77,6 +78,7 @@ func TestValuation(t *testing.T) {
 		t.Logf("Year %d FCFF: %f", i+offset, year.FCFF)
 		t.Logf("Year %d cost of capital: %f", i+offset, year.CostOfCapital)
 		t.Logf("Year %d discount factor: %f", i+offset, year.DiscountFactor)
+		t.Logf("Year %d PV(FCFF): %f", i+offset, year.PresentValueOfCashFlow)
 	}
 
 	t.Logf("Terminal year revenue growth rate: %f", output.TerminalYear.RevenueGrowthRate)
