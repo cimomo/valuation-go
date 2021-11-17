@@ -118,6 +118,8 @@ func (output *Output) Compute() error {
 
 	output.TerminalYear = terminalYear
 
+	output.TerminalCashFlow = terminalYear.FCFF
+
 	return nil
 }
 
