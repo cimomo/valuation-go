@@ -120,6 +120,8 @@ func (output *Output) Compute() error {
 
 	output.TerminalCashFlow = terminalYear.FCFF
 
+	output.TerminalValue = terminalYear.FCFF / (terminalYear.CostOfCapital - terminalYear.RevenueGrowthRate)
+
 	return nil
 }
 
