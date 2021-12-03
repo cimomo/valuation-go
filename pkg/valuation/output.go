@@ -124,6 +124,14 @@ func (output *Output) Compute() error {
 
 	output.PresentValueOfTerminalValue = output.TerminalValue * terminalYear.DiscountFactor
 
+	for _, year := range output.HighGrowthYears {
+		output.PresentValueOfCashFlow += year.PresentValueOfCashFlow
+	}
+
+	for _, year := range output.LowGrowthYears {
+		output.PresentValueOfCashFlow += year.PresentValueOfCashFlow
+	}
+
 	return nil
 }
 
