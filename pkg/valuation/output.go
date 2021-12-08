@@ -132,6 +132,8 @@ func (output *Output) Compute() error {
 		output.PresentValueOfCashFlow += year.PresentValueOfCashFlow
 	}
 
+	output.PresentValue = output.PresentValueOfTerminalValue + output.PresentValueOfCashFlow
+
 	return nil
 }
 
