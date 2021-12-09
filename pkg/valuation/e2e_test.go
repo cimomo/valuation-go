@@ -95,4 +95,5 @@ func TestValuation(t *testing.T) {
 	t.Logf("Terminal value: %f", output.TerminalValue)
 	t.Logf("Present value of terminal value: %f", output.PresentValueOfTerminalValue)
 	t.Logf("Present value of cash flows: %f", output.PresentValueOfCashFlow)
+	t.Logf("Present value: %f", output.PresentValue)
 }
