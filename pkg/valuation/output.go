@@ -134,6 +134,8 @@ func (output *Output) Compute() error {
 
 	output.PresentValue = output.PresentValueOfTerminalValue + output.PresentValueOfCashFlow
 
+	output.EquityValue = output.PresentValue - input.TotalDebt + input.TotalCash
+
 	return nil
 }
 
