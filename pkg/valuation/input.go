@@ -15,6 +15,7 @@ type Input struct {
 	TotalEquity           float64
 	TotalDebt             float64
 	TotalCash             float64
+	TotalShares           float64
 	EffectiveTaxRate      float64
 	CostOfCapital         float64
 	TerminalCostOfCapital float64
@@ -63,6 +64,11 @@ func (input *Input) Compute() error {
 	}
 
 	err = input.computeTotalCash()
+	if err != nil {
+		return err
+	}
+
+	err = input.computeTotalShares()
 	if err != nil {
 		return err
 	}
@@ -198,6 +204,28 @@ func (input *Input) computeTotalCash() error {
 	}
 
 	input.TotalCash = totalCash
+
+	return nil
+}
+
+func (input *Input) computeTotalShares() error {
+	quarterly := input.Company.BalanceSheet.QuarterlyReports
+	if quarterly == nil {
+		return errors.New("No quarterly balance sheet found")
+	}
+
+	if len(quarterly) == 0 {
+		return errors.New("Need at least one quarter of results")
+	}
+
+	balanceSheet := quarterly[0]
+
+	totalShares, err := strconv.ParseFloat(balanceSheet.CommonStockSharesOutstanding, 64)
+	if err != nil {
+		return err
+	}
+
+	input.TotalShares = totalShares
 
 	return nil
 }
