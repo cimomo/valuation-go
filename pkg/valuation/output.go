@@ -136,6 +136,8 @@ func (output *Output) Compute() error {
 
 	output.EquityValue = output.PresentValue - input.TotalDebt + input.TotalCash
 
+	output.ValuePerShare = output.EquityValue / input.TotalShares
+
 	return nil
 }
 
