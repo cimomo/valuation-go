@@ -18,7 +18,7 @@ func TestValuation(t *testing.T) {
 		t.Error(err)
 	}
 
-	input, err := NewInput(company, 0.15, 0.07, 0.07, 0.2, 0.4, 0.45, 2.0)
+	input, err := NewInput(company, 0.15, 0.07, 0.07, 0.12, 0.4, 0.45, 1.17)
 	if err != nil {
 		t.Error(err)
 	}
@@ -97,4 +97,5 @@ func TestValuation(t *testing.T) {
 	t.Logf("Present value of cash flows: %f", output.PresentValueOfCashFlow)
 	t.Logf("Present value: %f", output.PresentValue)
 	t.Logf("Equity value: %f", output.EquityValue)
+	t.Logf("Value per share: %f", output.ValuePerShare)
 }
