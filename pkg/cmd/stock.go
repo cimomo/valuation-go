@@ -12,5 +12,7 @@ func NewStockCmd() *cobra.Command {
 		Long:  ``,
 	}
 
+	stockCmd.AddCommand(NewValueCmd())
+
 	return stockCmd
 }
