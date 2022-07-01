@@ -18,10 +18,14 @@ func NewValueCmd() *cobra.Command {
 				return errors.New("stock value expects TICKER")
 			}
 
-			fmt.Println("[stock] valuing", args[0])
-			return nil
+			return doValue(args[0])
 		},
 	}
 
 	return valueCmd
+}
+
+func doValue(ticker string) error {
+	fmt.Println("[stock] valuing", ticker)
+	return nil
 }
