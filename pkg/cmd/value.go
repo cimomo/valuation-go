@@ -64,6 +64,12 @@ func doValue(ticker string) error {
 		return err
 	}
 
+	fmt.Println("Revenue TTM:", input.Revenue)
+	fmt.Println("EBIT TTM:", input.EBIT)
+	fmt.Println("Total Equity:", input.TotalEquity)
+	fmt.Println("Total Debt:", input.TotalDebt)
+	fmt.Println("Total Cash:", input.TotalCash)
+
 	fmt.Println("Value per share:", output.ValuePerShare)
 	return nil
 }
