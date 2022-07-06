@@ -70,6 +70,13 @@ func doValue(ticker string) error {
 	fmt.Println("Total Debt:", input.TotalDebt)
 	fmt.Println("Total Cash:", input.TotalCash)
 
+	fmt.Println("Base year revenue growth rate:", output.BaseYear.RevenueGrowthRate)
+	fmt.Println("Base year revenue:", output.BaseYear.Revenue)
+	fmt.Println("Base year EBIT margin:", output.BaseYear.EBITMargin)
+	fmt.Println("Base year EBIT:", output.BaseYear.EBIT)
+	fmt.Println("Base year tax rate:", output.BaseYear.TaxRate)
+	fmt.Println("Base year NOPAT:", output.BaseYear.AfterTaxEBIT)
+
 	fmt.Println("Value per share:", output.ValuePerShare)
 	return nil
 }
