@@ -77,6 +77,36 @@ func doValue(ticker string) error {
 	fmt.Println("Base year tax rate:", output.BaseYear.TaxRate)
 	fmt.Println("Base year NOPAT:", output.BaseYear.AfterTaxEBIT)
 
+	for i, year := range output.HighGrowthYears {
+		fmt.Printf("Year %d revenue growth rate: %f\n", i, year.RevenueGrowthRate)
+		fmt.Printf("Year %d revenue: %f\n", i, year.Revenue)
+		fmt.Printf("Year %d EBIT margin: %f\n", i, year.EBITMargin)
+		fmt.Printf("Year %d EBIT: %f\n", i, year.EBIT)
+		fmt.Printf("Year %d tax rate: %f\n", i, year.TaxRate)
+		fmt.Printf("Year %d NOPAT: %f\n", i, year.AfterTaxEBIT)
+		fmt.Printf("Year %d reinvestment: %f\n", i, year.Reinvestment)
+		fmt.Printf("Year %d FCFF: %f\n", i, year.FCFF)
+		fmt.Printf("Year %d cost of capital: %f\n", i, year.CostOfCapital)
+		fmt.Printf("Year %d discount factor: %f\n", i, year.DiscountFactor)
+		fmt.Printf("Year %d PV(FCFF): %f\n", i, year.PresentValueOfCashFlow)
+	}
+
+	offset := len(output.HighGrowthYears)
+
+	for i, year := range output.LowGrowthYears {
+		fmt.Printf("Year %d revenue growth rate: %f\n", i+offset, year.RevenueGrowthRate)
+		fmt.Printf("Year %d revenue: %f\n", i+offset, year.Revenue)
+		fmt.Printf("Year %d EBIT margin: %f\n", i+offset, year.EBITMargin)
+		fmt.Printf("Year %d EBIT: %f\n", i+offset, year.EBIT)
+		fmt.Printf("Year %d tax rate: %f\n", i+offset, year.TaxRate)
+		fmt.Printf("Year %d NOPAT: %f\n", i+offset, year.AfterTaxEBIT)
+		fmt.Printf("Year %d reinvestment: %f\n", i+offset, year.Reinvestment)
+		fmt.Printf("Year %d FCFF: %f\n", i+offset, year.FCFF)
+		fmt.Printf("Year %d cost of capital: %f\n", i+offset, year.CostOfCapital)
+		fmt.Printf("Year %d discount factor: %f\n", i+offset, year.DiscountFactor)
+		fmt.Printf("Year %d PV(FCFF): %f\n", i+offset, year.PresentValueOfCashFlow)
+	}
+
 	fmt.Println("Value per share:", output.ValuePerShare)
 	return nil
 }
