@@ -107,6 +107,16 @@ func doValue(ticker string) error {
 		fmt.Printf("Year %d PV(FCFF): %f\n", i+offset, year.PresentValueOfCashFlow)
 	}
 
+	fmt.Println("Terminal year revenue growth rate:", output.TerminalYear.RevenueGrowthRate)
+	fmt.Println("Terminal year revenue:", output.TerminalYear.Revenue)
+	fmt.Println("Terminal year EBIT margin:", output.TerminalYear.EBITMargin)
+	fmt.Println("Terminal year EBIT:", output.TerminalYear.EBIT)
+	fmt.Println("Terminal year tax rate:", output.TerminalYear.TaxRate)
+	fmt.Println("Terminal year NOPAT:", output.TerminalYear.AfterTaxEBIT)
+	fmt.Println("Terminal year reinvestment:", output.TerminalYear.Reinvestment)
+	fmt.Println("Terminal year FCFF:", output.TerminalYear.FCFF)
+	fmt.Println("Terminal year cost of capital:", output.TerminalYear.CostOfCapital)
+
 	fmt.Println("Value per share:", output.ValuePerShare)
 	return nil
 }
