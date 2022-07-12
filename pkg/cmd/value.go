@@ -117,6 +117,13 @@ func doValue(ticker string) error {
 	fmt.Println("Terminal year FCFF:", output.TerminalYear.FCFF)
 	fmt.Println("Terminal year cost of capital:", output.TerminalYear.CostOfCapital)
 
+	fmt.Println("Terminal cash flow:", output.TerminalCashFlow)
+	fmt.Println("Terminal value:", output.TerminalValue)
+	fmt.Println("Present value of terminal value:", output.PresentValueOfTerminalValue)
+	fmt.Println("Present value of cash flows:", output.PresentValueOfCashFlow)
+	fmt.Println("Present value:", output.PresentValue)
+	fmt.Println("Equity value:", output.EquityValue)
+
 	fmt.Println("Value per share:", output.ValuePerShare)
 	return nil
 }
