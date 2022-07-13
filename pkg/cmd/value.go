@@ -39,12 +39,12 @@ func doValue(ticker string) error {
 		return err
 	}
 
-	market, err := valuation.NewMarket(0.02, 0.02, 0.25)
+	market, err := valuation.NewMarket(0.03, 0.03, 0.25)
 	if err != nil {
 		return err
 	}
 
-	input, err := valuation.NewInput(company, 0.15, 0.07, 0.07, 0.12, 0.4, 0.45, 1.17)
+	input, err := valuation.NewInput(company, 0.15, 0.08, 0.08, 0.12, 0.4, 0.45, 1.17)
 	if err != nil {
 		return err
 	}
